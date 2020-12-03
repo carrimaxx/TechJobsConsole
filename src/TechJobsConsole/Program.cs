@@ -61,23 +61,40 @@ namespace TechJobsConsole
                     List<Dictionary<string, string>> searchResults;
 
                     // Fetch results
-                    string[] choices = {"core competency", "employer", "location", "position type"};
-                    if (columnChoice.Equals("all")) //original code
+                    if (columnChoice.Equals("all"))
                     {
-                        Console.WriteLine("Results for find by value method:");
+                        
                         searchResults = JobData.FindByValue(searchTerm);
-                        PrintJobs(searchResults);
+                   
+                        if (searchResults.Count == 0)
+                        {
+                            Console.WriteLine($"No results found for '{searchTerm}', please try again.");
+                        }
+                        else
+                        {
+                            Console.WriteLine($"All job results with the keyword {searchTerm}:");
+                            PrintJobs(searchResults);
+                        }
+                      
                     }
-
-                    // FIX THIS
-                    else if (columnChoice.Equals("employer"))
+                    else 
                     {
-                        searchResults = JobData.FindByColumnAndValue(columnChoice, searchTerm);
-                        PrintJobs(searchResults);
-                    }
-                    else
-                    {
-                        Console.WriteLine($"No results found for '{searchTerm}', please try again.");
+                        string[] choices = { "core competency", "employer", "location", "position type" };
+                        for (int i = 0; i < choices.Length; i++)
+                        {
+                            if (columnChoice.Equals(choices[i]))
+                            {
+                                searchResults = JobData.FindByColumnAndValue(choices[i], searchTerm);
+                                if(searchResults.Count == 0)
+                                {
+                                    Console.WriteLine($"No results found for '{searchTerm}', please try again.");
+                                }
+                                else
+                                {
+                                    PrintJobs(searchResults);
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -109,6 +126,7 @@ namespace TechJobsConsole
                 }
 
                 string input = Console.ReadLine();
+               
                 choiceIdx = int.Parse(input);
 
                 if (choiceIdx < 0 || choiceIdx >= choiceKeys.Length)

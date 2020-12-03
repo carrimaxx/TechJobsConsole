@@ -55,7 +55,6 @@ namespace TechJobsConsole
                     jobs.Add(row);
                 }
             }
-
             return jobs;
         }
 
@@ -67,7 +66,6 @@ namespace TechJobsConsole
 
             foreach (Dictionary<string, string> row in AllJobs)
             {
-                // if(row.Values  )
                 foreach(string val in row.Values)
                 {
                     if (val.ToLower().Contains(searchTerm.ToLower()))
@@ -77,16 +75,11 @@ namespace TechJobsConsole
                             jobsBySearchTerm.Add(row);
                         }
                     }
-                    else
-                    {
-                        continue;
-                    }
-                }
-               /* if (row.ContainsValue(searchTerm))   // first try
-                {
-                    jobsBySearchTerm.Add(row);
-                } */
-               
+                    //else
+                    //{
+                    //    continue;
+                    //}
+                } 
             }
             return jobsBySearchTerm;
         }
