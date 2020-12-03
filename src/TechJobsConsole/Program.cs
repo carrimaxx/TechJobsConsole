@@ -61,18 +61,24 @@ namespace TechJobsConsole
                     List<Dictionary<string, string>> searchResults;
 
                     // Fetch results
+                    string[] choices = {"core competency", "employer", "location", "position type"};
                     if (columnChoice.Equals("all")) //original code
                     {
                         Console.WriteLine("Results for find by value method:");
                         searchResults = JobData.FindByValue(searchTerm);
                         PrintJobs(searchResults);
                     }
-                    else
+
+                    // FIX THIS
+                    else if (columnChoice.Equals("employer"))
                     {
                         searchResults = JobData.FindByColumnAndValue(columnChoice, searchTerm);
                         PrintJobs(searchResults);
                     }
-                    // Console.WriteLine($"No results found for '{searchTerm}', please try again.");
+                    else
+                    {
+                        Console.WriteLine($"No results found for '{searchTerm}', please try again.");
+                    }
                 }
             }
         }
