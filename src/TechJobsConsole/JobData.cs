@@ -2,6 +2,7 @@
 using System.IO;
 using System.Reflection;
 using System.Text;
+using System; // added
 
 namespace TechJobsConsole
 {
@@ -57,6 +58,39 @@ namespace TechJobsConsole
 
             return jobs;
         }
+
+        public static List<Dictionary<string, string>> FindByValue(string searchTerm)
+        {
+            LoadData();
+
+            List<Dictionary<string, string>> jobsBySearchTerm = new List<Dictionary<string, string>>();
+
+            foreach (Dictionary<string, string> row in AllJobs)
+            {
+                // if(row.Values  )
+                foreach(string val in row.Values)
+                {
+                    if (val.ToLower().Contains(searchTerm.ToLower()))
+                    {
+                        if(!jobsBySearchTerm.Contains(row))
+                        {
+                            jobsBySearchTerm.Add(row);
+                        }
+                    }
+                    else
+                    {
+                        continue;
+                    }
+                }
+               /* if (row.ContainsValue(searchTerm))   // first try
+                {
+                    jobsBySearchTerm.Add(row);
+                } */
+               
+            }
+            return jobsBySearchTerm;
+        }
+
 
         /*
          * Load and parse data from job_data.csv
